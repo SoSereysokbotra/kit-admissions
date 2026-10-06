@@ -24,6 +24,7 @@
 
   const API_URL = (window.APP_CONFIG && window.APP_CONFIG.API_URL) ? window.APP_CONFIG.API_URL : '';
   const TIMEOUT_MS = 20000;
+  const KIT_GREEN = '#005850';
   const DRAFT_STORAGE_KEY = 'kit_admissions_draft_v1';
 
   const state = {
@@ -55,6 +56,7 @@
   const dom = {
     appContainer: document.getElementById('app-container'),
     previewBadge: document.getElementById('preview-badge'),
+    brandHeader: document.getElementById('brand-header'),
     progressContainer: document.getElementById('progress-container'),
     progressStepText: document.getElementById('progress-step-text'),
     progressFill: document.getElementById('progress-fill'),
@@ -278,7 +280,7 @@
     if (hasNativeMainButton) {
       try {
         if (isVisible) {
-          tg.MainButton.setText(text);
+          tg.MainButton.setParams({ text: text, color: KIT_GREEN, text_color: '#ffffff' });
           if (isProgress) {
             tg.MainButton.showProgress();
           } else {
@@ -366,6 +368,9 @@
     if (activeEl) {
       activeEl.classList.add('active');
     }
+
+    const showBrand = ['screen-step-1', 'screen-step-2', 'screen-step-3', 'screen-result'].includes(screenId);
+    dom.brandHeader.style.display = showBrand ? 'flex' : 'none';
 
     window.scrollTo(0, 0);
 

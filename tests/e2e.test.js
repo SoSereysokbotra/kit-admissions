@@ -11,7 +11,7 @@ function initData(user, authDate = Math.floor(Date.now() / 1000)) {
   return p.toString();
 }
 const tgStub = init => `window.Telegram={WebApp:(function(){
-  const mk=()=>({text:'',isVisible:false,h:[],setText(t){this.text=t},show(){this.isVisible=true},hide(){this.isVisible=false},
+  const mk=()=>({text:'',isVisible:false,h:[],setText(t){this.text=t},setParams(o){if(o.text!==undefined)this.text=o.text;if(o.color)this.color=o.color},show(){this.isVisible=true},hide(){this.isVisible=false},
     showProgress(){this.progress=true},hideProgress(){this.progress=false},onClick(f){this.h.push(f)},click(){this.h.forEach(f=>f())}});
   return {initData:${JSON.stringify(init)},initDataUnsafe:{},version:'8.0',MainButton:mk(),BackButton:mk(),
     HapticFeedback:{notificationOccurred(t){(window.__hap=window.__hap||[]).push(t)},impactOccurred(){}},
@@ -58,6 +58,7 @@ async function fill(p, o = {}) {
   let p = await open(b, initData(user));
   ok('Telegram mode: in-page buttons hidden', await p.evaluate(() => [...document.querySelectorAll('.btn-primary')].every(x => !x.offsetParent)));
   ok('MainButton shows "Get Started" on welcome', await p.evaluate(() => Telegram.WebApp.MainButton.text === 'Get Started' && Telegram.WebApp.MainButton.isVisible));
+  ok('MainButton uses KIT green', await p.evaluate(() => Telegram.WebApp.MainButton.color === '#005850'));
   ok('Provinces loaded from server (25)', (await p.$$eval('#select-province option', o => o.length - 1)) === 25);
   await fill(p);
   ok('Result screen shown', (await active(p)) === 'screen-result', await active(p));
