@@ -290,6 +290,9 @@ function applyLeadsFormatting(sheet) {
     sheet.getRange(2, parentPhoneCol, maxRows - 1, 1).setNumberFormat('@');
   }
 
+  // Show date AND time so counselors can judge the 24-hour callback window
+  sheet.getRange(2, getLeadColumnIndex('Timestamp'), maxRows - 1, 1).setNumberFormat('yyyy-mm-dd hh:mm');
+
   // 5. Data validation for Status column across all data rows
   const statusCol = getLeadColumnIndex('Status');
   const statusRule = SpreadsheetApp.newDataValidation()

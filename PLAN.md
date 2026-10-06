@@ -11,9 +11,9 @@ Replaces the senior's version (`index.html` + `code.gs`), which is kept as refer
 | 1. Google Sheet | ✅ Code done and reviewed | `backend/Setup.gs`; first real run happens in deployment Step C |
 | 2. Backend API | ✅ Done | 39/39 self-tests (`runSelfTests`); Telegram signature check verified against an independent reference |
 | 3. Frontend | ✅ Done | Headless Chrome at 360 px: all screens, validation, dark mode, no sideways scrolling |
-| 4. Bot integration | ✅ Code done · ⏳ **deployment by owner** | README steps A–I need the owner's Google, GitHub and Telegram accounts |
-| 5. Testing | ✅ Automated · ⏳ **live test by owner** | `tests/`: 36/36 end-to-end; live check is README step I |
-| 6. Launch & handover | ✅ Docs · ⏳ **go-live by owner** | README step J, staff guide, troubleshooting |
+| 4. Bot integration | ✅ Deployed on test bot `@kittuitionfee_test_bot` | Backend web app live; frontend at https://sosereysokbotra.github.io/kit-admissions/; `checkDeployment` READY |
+| 5. Testing | ✅ Automated + live | `tests/`: 36/36 end-to-end; live Telegram submit `KIT-261006-0001` → result screen, student message, admin alert, Sheet row (leading 0 kept) all verified |
+| 6. Launch & handover | ⏳ **Switch to @kittuitionfee_bot + go-live** | Needs the real bot's token; then README step J (old data, delete test rows, demo) |
 
 ---
 
