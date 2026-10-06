@@ -30,7 +30,7 @@ async function open(b, init) {
   p.on('request', r => {
     const u = r.url();
     if (u.includes('telegram-web-app.js')) return r.respond({ contentType: 'application/javascript', body: tgStub(init) });
-    if (u.endsWith('/config.js')) return r.respond({ contentType: 'application/javascript', body: `window.APP_CONFIG={API_URL:${JSON.stringify(API)}};` });
+    if (new URL(u).pathname.endsWith('/config.js')) return r.respond({ contentType: 'application/javascript', body: `window.APP_CONFIG={API_URL:${JSON.stringify(API)}};` });
     r.continue();
   });
   await p.goto('http://127.0.0.1:8765/index.html', { waitUntil: 'networkidle2' });
