@@ -80,7 +80,7 @@ Telegram bot ──(Menu Button / /start)──► Mini App (static site, GitHub
 **Tasks**
 - [ ] Create folder structure:
   ```
-  /frontend    index.html, app.js, styles.css, assets/logo.png
+  /frontend    index.html, app.js, styles.css, assets/logo.jpg
   /backend     Code.gs, Setup.gs, appsscript.json
   /legacy      old index.html, code.gs (reference only)
   README.md    deployment guide
