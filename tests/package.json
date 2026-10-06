@@ -1,0 +1,12 @@
+{
+  "name": "kit-admissions-tests",
+  "private": true,
+  "description": "End-to-end test: real frontend + real backend code on mocked Google services",
+  "scripts": {
+    "server": "node mock-server.js",
+    "test": "node e2e.test.js"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^23.0.0"
+  }
+}

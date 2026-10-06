@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>KIT Admissions</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: var(--tg-theme-bg-color, #f0fdf4);
+      color: var(--tg-theme-text-color, #1f2937);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .tg-button {
+      background-color: #16a34a;
+      color: #ffffff;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      border: 1px solid #d1d5db;
+      padding: 8px;
+      text-align: center;
+      font-size: 0.875rem;
+    }
+    th {
+      background-color: #dcfce7;
+      color: #166534;
+      font-weight: 700;
+    }
+    td:first-child {
+      text-align: left;
+      font-weight: 600;
+      background-color: #f9fafb;
+    }
+  </style>
+</head>
+<body class="p-4 pb-20">
+
+  <div id="app-container" class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden p-6 mt-2 border-t-4 border-green-600">
+    
+    <div class="text-center mb-6">
+      <div class="w-20 h-20 mx-auto bg-white rounded-full flex items-center justify-center mb-2 overflow-hidden border border-gray-100 shadow-sm">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYi4SW7EBjNGHK5nI_TzF0Sn0WinUWBZbgLG8vl2fUM-TEilFxVOjJb1q0&s=10" alt="KIT Logo" class="w-full h-full object-cover">
+      </div>
+      <h2 class="text-2xl font-bold text-green-800">KIT Admissions</h2>
+      <p class="text-xs text-gray-500 mt-1 font-semibold uppercase tracking-wider">First-Year Calculator</p>
+    </div>
+
+    <form id="admissionForm" class="space-y-4" onsubmit="submitForm(event)">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Full Name *</label>
+        <input type="text" id="name" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:ring-green-500 focus:border-green-500">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Gender *</label>
+        <select id="gender" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-white focus:ring-green-500 focus:border-green-500">
+          <option value="" disabled selected>Select</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Phone *</label>
+          <input type="tel" id="phone" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:ring-green-500 focus:border-green-500">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Parent Phone (Optional)</label>
+          <input type="tel" id="parentPhone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:ring-green-500 focus:border-green-500">
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Email Address</label>
+        <input type="email" id="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:ring-green-500 focus:border-green-500">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Home Province *</label>
+        <input type="text" id="province" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:ring-green-500 focus:border-green-500" placeholder="e.g., Phnom Penh">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700">High School Name *</label>
+        <input type="text" id="highschool" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:ring-green-500 focus:border-green-500">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Department *</label>
+        <select id="department" required onchange="updateMajors()" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-white focus:ring-green-500 focus:border-green-500">
+          <option value="" disabled selected>Select Department</option>
+          <option value="Engineering">Engineering</option>
+          <option value="Management">Management</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Major *</label>
+        <select id="major" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-white focus:ring-green-500 focus:border-green-500">
+          <option value="" disabled selected>Select Major</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700">BAC II Grade *</label>
+        <select id="grade" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-white focus:ring-green-500 focus:border-green-500">
+          <option value="" disabled selected>Select Grade</option>
+          <option value="A">Grade A</option>
+          <option value="B">Grade B</option>
+          <option value="C">Grade C</option>
+          <option value="D">Grade D</option>
+          <option value="E">Grade E</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Questions / Inquiries</label>
+        <textarea id="inquiry" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:ring-green-500 focus:border-green-500"></textarea>
+      </div>
+
+      <button type="submit" id="submitBtn" class="w-full tg-button font-semibold py-3 px-4 rounded-lg shadow mt-6 transition duration-200">
+        Calculate & Apply
+      </button>
+    </form>
+    
+    <!-- RESULTS VIEW -->
+    <div id="resultsContainer" class="hidden mt-4">
+
+      <div class="overflow-x-auto rounded-lg shadow-sm">
+        <table>
+          <thead>
+            <tr>
+              <th>Details</th>
+              <th>Non-partner School</th>
+              <th>KIT-Partner</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Base Tuition</td>
+              <td id="tdBaseStd"></td>
+              <td id="tdBasePart"></td>
+            </tr>
+            <tr>
+              <td>Discount</td>
+              <td id="tdDiscStd" class="text-green-600 font-bold"></td>
+              <td id="tdDiscPart" class="text-green-600 font-bold"></td>
+            </tr>
+            <tr>
+              <td>Pay Quarter</td>
+              <td id="tdQtrStd" class="font-semibold text-gray-900"></td>
+              <td id="tdQtrPart" class="font-semibold text-gray-900"></td>
+            </tr>
+            <tr>
+              <td>Pay Semester</td>
+              <td id="tdSemStd" class="font-semibold text-gray-900"></td>
+              <td id="tdSemPart" class="font-semibold text-gray-900"></td>
+            </tr>
+            <tr>
+              <td>Pay Yearly</td>
+              <td id="tdYrStd" class="font-semibold text-gray-900"></td>
+              <td id="tdYrPart" class="font-semibold text-gray-900"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <p class="text-xs text-red-600 text-center font-bold mt-4 px-2">
+        Note: Above price exclude admission fee $500 one time fee.
+      </p>
+
+      <p class="text-sm text-gray-600 text-center font-medium mt-3 px-2">
+        📞 A counselor may call you within 72 hours.
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+
+    function updateMajors() {
+      const dept = document.getElementById('department').value;
+      const majorSelect = document.getElementById('major');
+      
+      majorSelect.innerHTML = '<option value="" disabled selected>Select Major</option>';
+      
+      if (dept === 'Engineering') {
+        majorSelect.add(new Option('Software Engineering', 'Software Engineering'));
+        majorSelect.add(new Option('AI & Machine Learning', 'AI & Machine Learning'));
+        majorSelect.add(new Option('Cyber Security', 'Cyber Security'));
+      } else if (dept === 'Management') {
+        majorSelect.add(new Option('Tourism DX & Hospitality Management', 'Tourism DX & Hospitality Management'));
+        majorSelect.add(new Option('Business Administration with Applied AI', 'Business Administration with Applied AI'));
+      }
+    }
+
+    function submitForm(e) {
+      e.preventDefault();
+      
+      const btn = document.getElementById('submitBtn');
+      btn.innerText = "Calculating & Sending...";
+      btn.disabled = true;
+      btn.classList.add("opacity-50");
+
+      const chatId = tg.initDataUnsafe?.user?.id || 'Unknown';
+
+      const data = {
+        chatId: chatId,
+        name: document.getElementById('name').value,
+        gender: document.getElementById('gender').value,
+        phone: document.getElementById('phone').value,
+        parentPhone: document.getElementById('parentPhone').value,
+        email: document.getElementById('email').value,
+        province: document.getElementById('province').value,
+        highschool: document.getElementById('highschool').value,
+        department: document.getElementById('department').value,
+        major: document.getElementById('major').value,
+        grade: document.getElementById('grade').value,
+        inquiry: document.getElementById('inquiry').value
+      };
+
+      google.script.run
+        .withSuccessHandler(showResults)
+        .withFailureHandler(showError)
+        .processSubmission(data);
+    }
+
+    function showResults(jsonResponse) {
+      const fees = JSON.parse(jsonResponse);
+      
+      document.getElementById('admissionForm').classList.add('hidden');
+      document.getElementById('resultsContainer').classList.remove('hidden');
+      
+      document.getElementById('tdBaseStd').innerText = `$${fees.base}/yr`;
+      document.getElementById('tdBasePart').innerText = `$${fees.base}/yr`;
+      
+      document.getElementById('tdDiscStd').innerText = `${fees.standard.discountPct}%`;
+      document.getElementById('tdDiscPart').innerText = `${fees.partner.discountPct}%`;
+      
+      document.getElementById('tdQtrStd').innerText = `$${fees.standard.quarter}`;
+      document.getElementById('tdQtrPart').innerText = `$${fees.partner.quarter}`;
+      
+      document.getElementById('tdSemStd').innerText = `$${fees.standard.semester}`;
+      document.getElementById('tdSemPart').innerText = `$${fees.partner.semester}`;
+      
+      document.getElementById('tdYrStd').innerText = `$${fees.standard.yearly}`;
+      document.getElementById('tdYrPart').innerText = `$${fees.partner.yearly}`;
+    }
+
+    function showError(error) {
+      alert("Error submitting application. Please try again.");
+      const btn = document.getElementById('submitBtn');
+      btn.innerText = "Calculate & Apply";
+      btn.disabled = false;
+      btn.classList.remove("opacity-50");
+    }
+  </script>
+</body>
+</html>
