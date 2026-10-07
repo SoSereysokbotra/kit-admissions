@@ -895,7 +895,7 @@ function deleteWebhook() {
 function getWebhookInfo() {
   Logger.log('Calling getWebhookInfo...');
   const res = callTelegramApi('getWebhookInfo', {});
-  Logger.log('getWebhookInfo response: ' + JSON.stringify(res));
+  Logger.log('getWebhookInfo response: ' + JSON.stringify(res).replace(/key=[^&"]+/g, 'key=***'));
 
   if (res.ok && res.result) {
     const info = res.result;
