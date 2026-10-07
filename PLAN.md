@@ -3,17 +3,17 @@
 Telegram Mini App for prospective students to register interest and get a Year-1 tuition estimate.
 Replaces the senior's version (`index.html` + `code.gs`), which is kept as reference only.
 
-## Status (2026-10-06)
+## Status (2026-10-07): live
 
 | Phase | Status | Evidence |
 |---|---|---|
 | 0. Project setup | ✅ Done | Folders, `legacy/`, local logo |
-| 1. Google Sheet | ✅ Code done and reviewed | `backend/Setup.gs`; first real run happens in deployment Step C |
+| 1. Google Sheet | ✅ Done | Live Sheet set up by `setup()`; Leads, Config, Log tabs |
 | 2. Backend API | ✅ Done | 39/39 self-tests (`runSelfTests`); Telegram signature check verified against an independent reference |
 | 3. Frontend | ✅ Done | Headless Chrome at 360 px: all screens, validation, dark mode, no sideways scrolling |
 | 4. Bot integration | ✅ Live on official bot `@kit_admissions_bot` (tested first on `@kittuitionfee_test_bot`) | Backend web app live; frontend at https://sosereysokbotra.github.io/kit-admissions/; `checkDeployment` READY |
-| 5. Testing | ✅ Automated + live | `tests/`: 36/36 end-to-end; live Telegram submit `KIT-261006-0001` → result screen, student message, admin alert, Sheet row (leading 0 kept) all verified |
-| 6. Launch & handover | ⏳ **Clean-up + demo** | Official link `t.me/kit_admissions_bot`; old `@kittuitionfee_bot` (senior's) to be retired; README step J (old data, delete test rows, demo) |
+| 5. Testing | ✅ Automated + live | `tests/`: 38/38 end-to-end; live Telegram submit `KIT-261006-0001` → result screen, student message, admin alert, Sheet row (leading 0 kept) all verified |
+| 6. Launch & handover | ✅ Done (2026-10-07) | Test rows cleared, bot photo + one-tap Mini App link set, test bot removed, handed to Mr. Leo; old `@kittuitionfee_bot` (senior's) to be retired |
 
 ---
 
