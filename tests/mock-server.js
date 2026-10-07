@@ -23,6 +23,7 @@ const ctx={console,Logger:{log(){}},
  LockService:{getScriptLock:()=>({tryLock:()=>true,waitLock(){},releaseLock(){}})},
  PropertiesService:{getScriptProperties:()=>({getProperty:k=>props[k]??null,setProperty:(k,v)=>{props[k]=String(v)}})},
  UrlFetchApp:{fetch:(url,o)=>{sent.push({method:url.split('/').pop(),body:JSON.parse(o.payload)});return{getResponseCode:()=>200,getContentText:()=>'{"ok":true,"result":{}}'}}},
+ HtmlService:{createHtmlOutput:s=>({c:s})},
  ContentService:{MimeType:{JSON:'json',TEXT:'text'},createTextOutput:s=>{const o={c:s,setMimeType(){return o}};return o}},
  Utilities:{computeHmacSha256Signature(v,k){if(!((typeof v==='string'&&typeof k==='string')||(Array.isArray(v)&&Array.isArray(k))))throw new Error('overload');
    return[...crypto.createHmac('sha256',toBuf(k)).update(toBuf(v)).digest()].map(b=>b>127?b-256:b)},

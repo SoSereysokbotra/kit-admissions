@@ -122,8 +122,10 @@ async function fill(p, o = {}) {
   await post({ update_id: 9002, message: { text: '/start', chat: { id: 555001, type: 'private' } } }, K);
   await post({ update_id: 9002, message: { text: '/start', chat: { id: 555001, type: 'private' } } }, K);
   await post({ update_id: 9003, message: { text: '/start', chat: { id: -4000000001, type: 'group' } } }, K);
+  const late = await post({ update_id: 9002, message: { text: '/start', chat: { id: 555001, type: 'private' } } }, K); // retry arriving hours later
+  ok('Webhook answers plain 200 "OK" (no redirect)', late.raw === 'OK', JSON.stringify(late));
   s = await state(); const ws = s.sent.slice(nSent);
-  ok('/start: one reply with web_app button (retry deduped, group ignored)', ws.length === 1 && ws[0].body.reply_markup.inline_keyboard[0][0].web_app.url === 'https://example.github.io/kit/', JSON.stringify(ws.map(x => x.body.chat_id)));
+  ok('/start: one reply with web_app button (immediate + late retries ignored, group ignored)', ws.length === 1 && ws[0].body.reply_markup.inline_keyboard[0][0].web_app.url === 'https://example.github.io/kit/', JSON.stringify(ws.map(x => x.body.chat_id)));
 
   // 7. Misc
   ok('Malformed JSON -> BAD_REQUEST', (await (await fetch(API, { method: 'POST', body: '{oops' })).json()).error.code === 'BAD_REQUEST');

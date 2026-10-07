@@ -18,7 +18,6 @@ const CONFIG_CACHE_KEY = 'kit_admissions_config_v1';
 const CONFIG_CACHE_TTL_SEC = 300; // 5 minutes
 const RATE_LIMIT_WINDOW_SEC = 600; // 10 minutes
 const RATE_LIMIT_MAX_SUBMITS = 3;
-const WEBHOOK_DEDUPE_TTL_SEC = 21600; // 6 hours
 
 /**
  * Standard JSON response constructor.
@@ -708,19 +707,29 @@ function sendSubmissionNotifications(ctx) {
  * @return {ContentService.TextOutput}
  */
 function handleTelegramWebhook(update) {
-  const updateId = String(update.update_id);
-  const cache = CacheService.getScriptCache();
+  const updateId = Number(update.update_id);
 
-  // Deduplicate updates within 6 hours
-  const cacheKey = `tg_upd_${updateId}`;
-  if (cache.get(cacheKey)) {
-    return ContentService.createTextOutput('OK');
+  // Telegram retries an update until it gets a clean HTTP 200. Update IDs only ever
+  // increase, so a permanent high-water mark ignores every retry, however late it arrives.
+  // (The previous 6-hour cache let retries through after it expired.)
+  const lock = LockService.getScriptLock();
+  if (!lock.tryLock(5000)) {
+    return webhookOk();
   }
-  cache.put(cacheKey, '1', WEBHOOK_DEDUPE_TTL_SEC);
+  try {
+    const props = PropertiesService.getScriptProperties();
+    const lastId = Number(props.getProperty('tg_last_update_id') || 0);
+    if (!isFinite(updateId) || updateId <= lastId) {
+      return webhookOk();
+    }
+    props.setProperty('tg_last_update_id', String(updateId));
+  } finally {
+    lock.releaseLock();
+  }
 
   const message = update.message;
   if (!message || !message.text) {
-    return ContentService.createTextOutput('OK');
+    return webhookOk();
   }
 
   // Only reply to /start when in a private chat
@@ -730,7 +739,7 @@ function handleTelegramWebhook(update) {
       webAppUrl = getRequiredSecret('WEBAPP_URL');
     } catch (err) {
       logEvent('ERROR', 'Webhook', 'WEBAPP_URL not set in properties');
-      return ContentService.createTextOutput('OK');
+      return webhookOk();
     }
 
     const chatId = message.chat.id;
@@ -747,5 +756,16 @@ function handleTelegramWebhook(update) {
     sendTelegramMessage(chatId, welcomeHtml, keyboard);
   }
 
-  return ContentService.createTextOutput('OK');
+  return webhookOk();
+}
+
+/**
+ * Webhook acknowledgement. ContentService output is served through a 302 redirect,
+ * which Telegram counts as a failed delivery and retries; HtmlService output is
+ * returned directly with HTTP 200.
+ *
+ * @return {HtmlService.HtmlOutput}
+ */
+function webhookOk() {
+  return HtmlService.createHtmlOutput('OK');
 }
