@@ -461,6 +461,17 @@ textarea[aria-invalid="true"] {
   margin-top: 10px;
 }
 
+.campus-visit-note {
+  font-weight: 600;
+  color: var(--text-color);
+  margin-top: 6px;
+}
+
+.campus-visit-note a {
+  color: var(--link-color);
+  text-decoration: underline;
+}
+
 .lead-ref {
   font-size: 11px;
   color: var(--hint-color);

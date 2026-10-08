@@ -686,7 +686,8 @@ function sendSubmissionNotifications(ctx) {
         `• Pay per quarter: <b>${formatMoney(fees.standard.quarter)}</b>\n\n` +
         `• One-time admission fee of ${formatMoney(config.admission_fee)} is not included.\n` +
         `• Estimate only, subject to KIT's confirmation. From Year 2, scholarships are performance-based.\n\n` +
-        `📞 A counselor may call you within ${config.callback_hours} hours.`;
+        `📞 A counselor may call you within ${config.callback_hours} hours.\n\n` +
+        `🏛️ Book a campus visit: 010 575 011, 099 317 774`;
 
       sendTelegramMessage(telegramUser.id, studentHtml);
     } catch (err) {
