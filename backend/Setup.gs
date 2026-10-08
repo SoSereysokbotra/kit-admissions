@@ -931,16 +931,16 @@ function setupBotProfile() {
   Logger.log('1. Setting commands (/start)...');
   const cmdRes = callTelegramApi('setMyCommands', {
     commands: [
-      { command: 'start', description: 'Open KIT Admissions' }
+      { command: 'start', description: 'Open KIT Scholarship Calculator' }
     ]
   });
   Logger.log('setMyCommands result: ' + JSON.stringify(cmdRes));
 
-  Logger.log('2. Setting chat menu button (Admissions Web App)...');
+  Logger.log('2. Setting chat menu button (Scholarship Calculator Web App)...');
   const menuRes = callTelegramApi('setChatMenuButton', {
     menu_button: {
       type: 'web_app',
-      text: 'Admissions',
+      text: 'Scholarship Calculator',
       web_app: { url: webappUrl }
     }
   });
@@ -948,13 +948,13 @@ function setupBotProfile() {
 
   Logger.log('3. Setting bot description...');
   const descRes = callTelegramApi('setMyDescription', {
-    description: 'Welcome to Kirirom Institute of Technology (KIT) Admissions bot. Register your interest and estimate your Year-1 tuition fee and scholarship based on your BAC II grade.'
+    description: 'Welcome to Kirirom Institute of Technology (KIT) Scholarship Calculator bot. Register your interest and estimate your Year-1 tuition fee and scholarship based on your BAC II grade.'
   });
   Logger.log('setMyDescription result: ' + JSON.stringify(descRes));
 
   Logger.log('4. Setting bot short description...');
   const shortDescRes = callTelegramApi('setMyShortDescription', {
-    short_description: 'Official KIT admissions & Year-1 tuition scholarship estimator.'
+    short_description: 'Official KIT Year-1 tuition scholarship estimator.'
   });
   Logger.log('setMyShortDescription result: ' + JSON.stringify(shortDescRes));
 
