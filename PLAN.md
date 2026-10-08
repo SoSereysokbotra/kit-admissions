@@ -11,9 +11,9 @@ Replaces the senior's version (`index.html` + `code.gs`), which is kept as refer
 | 1. Google Sheet | ✅ Done | Live Sheet set up by `setup()`; Leads, Config, Log tabs |
 | 2. Backend API | ✅ Done | 39/39 self-tests (`runSelfTests`); Telegram signature check verified against an independent reference |
 | 3. Frontend | ✅ Done | Headless Chrome at 360 px: all screens, validation, dark mode, no sideways scrolling |
-| 4. Bot integration | ✅ Live on official bot `@kit_admissions_bot` (tested first on `@kittuitionfee_test_bot`) | Backend web app live; frontend at https://sosereysokbotra.github.io/kit-admissions/; `checkDeployment` READY |
+| 4. Bot integration | ✅ Live on official bot `@kit_scholarship_calculator_bot` | Backend web app live; frontend at https://sosereysokbotra.github.io/kit-admissions/; `checkDeployment` READY |
 | 5. Testing | ✅ Automated + live | `tests/`: 38/38 end-to-end; live Telegram submit `KIT-261006-0001` → result screen, student message, admin alert, Sheet row (leading 0 kept) all verified |
-| 6. Launch & handover | ✅ Done (2026-10-07) | Test rows cleared, bot photo + one-tap Mini App link set, test bot removed, handed to Mr. Leo; old `@kittuitionfee_bot` (senior's) to be retired |
+| 6. Launch & handover | ✅ Done (2026-10-08) | Official bot `@kit_scholarship_calculator_bot`, leads routed to `KIT Scholarship Calculator Leads` group |
 
 ---
 
